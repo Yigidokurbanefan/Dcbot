@@ -1,5 +1,8 @@
 import discord
 import time
+import random
+import os
+import requests
 from discord.ext import commands
 
 intents = discord.Intents.default()
@@ -31,6 +34,46 @@ async def MyBot(ctx, message):
         await ctx.send("Biri Kıymadan, Diğeri İse Mıymadan Yapılır")
     elif message == "MurathanTümay":
         await ctx.send("(M)Adam")
+
+@bot.command()
+async def BenimBot(ctx):
+    z = random.choice(os.listdir("Resimler"))
+    with open(f"Resimler/{z}","rb") as x:
+        y = discord.File(x)
+    await ctx.send(file = y)
+
+@bot.command()
+async def BenimHayvan(ctx):
+    a = random.choice(os.listdir("Hayvanlar"))
+    with open(f"Hayvanlar/{a}","rb") as b:
+        c = discord.File(b)
+    await ctx.send(file = c)
+
+def get_duck_image_url():    
+    url = 'https://random-d.uk/api/random'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+
+@bot.command()
+async def Duck(ctx):
+    image_url = get_duck_image_url()
+    await ctx.send(image_url)
+
+def get_dog_image_url():    
+    url = 'https://random.dog/woof.json'
+    res = requests.get(url)
+    data = res.json()
+    return data['url']
+
+
+@bot.command()
+async def Dog(ctx):
+    image_url = get_dog_image_url()
+    await ctx.send(image_url)
+    
+
     
 
 bot.run()
