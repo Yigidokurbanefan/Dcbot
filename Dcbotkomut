@@ -24,6 +24,7 @@ async def MyBot(ctx, message, message1= "", message2="", message3 = "", message4
     i = random.randint(1,10)
     j = random.randint(1,10)
     k = random.randint(1,10)
+    ulke = "Türkiye'nin Başkenti Ankara'dır.","İspanya'nın Başkenti Madrid'dir.","Rusya'nın Başkenti Moskova'dır."
     if message == "Nasılsın?":
         await ctx.send("İyi Senden?")
     elif message == "Çok":
@@ -105,6 +106,9 @@ async def MyBot(ctx, message, message1= "", message2="", message3 = "", message4
                         await ctx.send("Yanlış")
                 except:
                     await ctx.send("Lütfen Sayı Gönderin")
+    elif message == "Ülke-Başkent":
+        await ctx.send(random.choice(ulke))
+
 
 
     elif message == "MurathanTümay":
