@@ -3,6 +3,7 @@ import time
 import random
 import os
 import requests
+import dcbotimg
 from discord.ext import commands
 
 intents = discord.Intents.default()
@@ -31,7 +32,7 @@ async def MyBot(ctx, message, message1= "", message2="", message3 = "", message4
         if message1 == "İyiyim":
             await ctx.send("Daha İyi Olun Efendim")
     elif message == "Çok":
-        if message1 == "Kötüyüm":
+        if message1 == "Kötüyüm":   
             await ctx.send("Geçmiş Olsun Efendim")
     elif message == "Bana":
         if message1 == "Bir":
@@ -111,8 +112,6 @@ async def MyBot(ctx, message, message1= "", message2="", message3 = "", message4
 
 
 
-    elif message == "MurathanTümay":
-        await ctx.send("(M)Adam")
 
 @bot.command()
 async def BenimBot(ctx):
@@ -153,6 +152,54 @@ async def Dog(ctx):
     await ctx.send(image_url)
     
 
-    
+@bot.command()
+async def Photograph(ctx):
+    if ctx.message.attachments:
+        for dosya in ctx.message.attachments:
+            await dosya.save(f"KullaniciResimleri/{dosya.filename}")
+            await ctx.send("Fotoğrafın Geldi")
+        x,y = dcbotimg.dcaktar(f"KullaniciResimleri/{dosya.filename}")
+        z = str(y*100)
+        if x == "Python\n":
+            await ctx.send(f"Python. %{z[:4]} Olasılıkla Eminim.")
+            await ctx.send("Benim Yapı Taşım")
+        elif x == "C++\n":
+            await ctx.send(f"C++. %{z[:4]} Olasılıkla Eminim.")
+            await ctx.send("Benim Sahibim Bile Bilmiyor")
+        elif x == "Lua\n":
+            await ctx.send(f"Lua. %{z[:4]} Olasılıkla Eminim.")
+            await ctx.send("Artık Yok :(")
+        elif x == "C#\n":
+            await ctx.send(f"C#. %{z[:4]} Olasılıkla Eminim.")
+            await ctx.send("Sahibimin Eskiden Öğrendiği Dil")
+    else:
+        await ctx.send("Fotoğrafın Gelmedi")
+
+@bot.command()
+async def EBOB(ctx, *args):
+    sayilar = list(map(int, args))
+    if not sayilar:
+        await ctx.send("Lütfen en az bir sayı giriniz.")
+        return
+
+    bolunenler = []
+    b = 1
+    while b <= min(sayilar):
+        if min(sayilar) % b == 0:
+            bolunenler.append(b)
+        b = b + 1
+
+    while bolunenler:
+        if all(sayi % max(bolunenler) == 0 for sayi in sayilar):
+            await ctx.send(f"EBOB: {max(bolunenler)}")
+            return
+        bolunenler.remove(max(bolunenler))
+
+@bot.command()
+async def Rastgele(ctx):
+    komut = random.randint(1,100)
+    await ctx.send(komut)
+
+
 
 bot.run()
