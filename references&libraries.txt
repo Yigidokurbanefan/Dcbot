@@ -1,0 +1,13 @@
+Reference:
+MEE6
+ProBot
+FredBoat
+
+
+Libraries:
+Discord
+Time
+Random
+Os
+Requests
+Commands
